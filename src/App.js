@@ -1,5 +1,7 @@
 import React from "react";
 import Banner from "./components/Banner";
+import Search from "./components/Search";
+import { Switch, Route } from "react-router-dom";
 import Rows from "./components/Rows";
 function App() {
 
@@ -15,7 +17,8 @@ function App() {
   return (
    <>
    {/* <Navbar /> */}
-   <Banner trendingUrl={trendingUrl} />
+   <Switch>
+     <Route path="/" exact>
    <Rows topRated={topRated} 
       netflixOriginal={netflixOriginal} 
       trendingUrl={trendingUrl} 
@@ -24,6 +27,11 @@ function App() {
       horrorMoviesUrl={horrorMovies}
       comedyMoviesUrl={comedyMovies}
    />
+   </Route>
+   <Route path="/search">
+     <Search />
+   </Route>
+   </Switch>
    </>
   );
 }

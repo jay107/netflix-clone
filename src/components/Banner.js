@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import {Link} from "react-router-dom";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 const Banner = ({ trendingUrl }) => {
     const [movie, setMovie] = useState("");
+    const [search, setSearch] = useState("avatar");
+    const [searchMovie, setSearchMovie] = useState("");
 
     // const responsive = {
     //     desktop: {
@@ -25,33 +28,17 @@ const Banner = ({ trendingUrl }) => {
 
     useEffect(() => {
         fetch(trendingUrl).then(res => res.json()).then(data => setMovie(data.results[0]));
+        
+        fetch(`http://www.omdbapi.com/?t=${search}&apikey=5978a012`).then(res => res.json()).then(data => setSearchMovie(data));
 
-    }, []);
+    }, [search]);
 
+   
     if (!movie) return "";
-
+    
     return (
         <>
-            <header className="banner-header">
-
-                <div className="banner-heading">
-                    <h2> <span>NETFLIX</span> original</h2>
-                    <h1>{movie?.title || movie?.name || movie?.original_name} </h1>
-                    <div className="header-buttons">
-                        <button>{movie?.media_type}</button>
-                        <button>{movie?.original_language}</button>
-                        <button>{movie?.release_date}</button>
-                        <button>{movie?.vote_average}</button>
-                    </div>
-                    <p> {movie?.overview} </p>
-                </div>
-                <div className="banner-img" style={{
-                    backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`,
-                    backgroundPosition: "center",
-                    backgroundSize: "cover"
-                }}>
-                </div>
-            </header>
+          
         </>
     )
 }

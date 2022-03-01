@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+
 *{
     background: black;
     color: white;
@@ -25,6 +28,35 @@
     height: 70vh;
     width: 100%;
     align-items: center;
+}
+
+.searchComp{
+    height: 50px;
+    display: flex;
+}
+
+ .searchComp .main-searchbar{
+    position: absolute;
+    right: 2%;
+    top: 2%;
+}
+
+.searchComp .main-searchbar i{
+    font-size: 25px;
+    color: darkgray;
+}
+
+.searchComp .main-searchbar input{
+    border: none;
+    border-bottom: 1px solid #84868f;
+    outline: none;
+    color: #84868f;
+    font-size: 25px;
+    margin-left: 10px;
+}
+
+.searchComp .main-searchbar input::placeholder{
+    color: #84868f;
 }
 
 .banner-img{
@@ -122,4 +154,74 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+.arrow-main{
+    position: absolute;
+    left: -1%;
+    top: 12%;
+}
+
+.arrow-main i{
+    font-size: 15px;
+    color: #84868f;
+    border: 2px solid #84868f;
+    border-radius: 15px;
+    padding: 20px;
+    border-left: 0px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.arrow-main i:hover{
+    background: #84868f;
+    color: black;
+    border: 2px solid black;
+}
+
+.searchBar{
+    z-index: 1;
+}
+
+.searchComp{
+    z-index: 2;
+}
+
+
+.searchMain{
+    display: grid;
+    font-family: 'Poppins', sans-serif;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.searchMain .row-1-div , .searchMain .row-2-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;    
+}
+
+.searchMain .row-2-div{
+    height: 100%;
+}
+
+.to-main-link{
+    color: red;
+    font-size: 25px;
+    text-decoration: none;
+    margin: 20px 0 0 30px;
+}
+
+.row-1-div h1{
+    color: blue;
+}
+
+.row-1-div p{
+    margin-top: 10px;
+}
+
+.row-1-div span{
+    color: rgb(83, 83, 216);
 }

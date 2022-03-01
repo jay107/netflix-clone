@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Carousel from 'react-multi-carousel';
+import {Link} from "react-router-dom";
 import movieImg from "../image/movieImg.jpeg";
 import Loading from "./Loading";
 import 'react-multi-carousel/lib/styles.css';
@@ -13,6 +14,10 @@ const Rows = ({ topRated, netflixOriginal, trendingUrl, actionMoviesUrl, romance
     const [romanceMovies, setRomancemovies] = useState("");
     const [horrorMovies, setHorrorMovies] = useState("");
     const [comedyMovies, setComedyMovies] = useState("");
+    const [movie, setMovie] = useState("");
+    const [search, setSearch] = useState("avatar");
+    const [searchMovie, setSearchMovie] = useState("");
+
 
     const responsive = {
         desktop: {
@@ -40,6 +45,9 @@ const Rows = ({ topRated, netflixOriginal, trendingUrl, actionMoviesUrl, romance
         fetch(romanceMoviesUrl).then(res => res.json()).then(data => setRomancemovies(data.results));
         fetch(horrorMoviesUrl).then(res => res.json()).then(data => setHorrorMovies(data.results));
         fetch(comedyMoviesUrl).then(res => res.json()).then(data => setComedyMovies(data.results));
+        fetch(trendingUrl).then(res => res.json()).then(data => setMovie(data.results[0]));
+        fetch(`http://www.omdbapi.com/?t=${search}&apikey=5978a012`).then(res => res.json()).then(data => setSearchMovie(data));
+
     }, []);
 
     if (!topRatedMovies || !netflixOriginalMovies || !trendingMovies || !actionMovies || !horrorMovies || !romanceMovies || !comedyMovies ) return <Loading />;
@@ -50,9 +58,35 @@ const Rows = ({ topRated, netflixOriginal, trendingUrl, actionMoviesUrl, romance
         btn.classList.add("btn-show")
     )} }
 
+   
+    if (!movie) return "";
 
     return (
             <>
+              <header className="banner-header">
+           <div className='searchBar'>
+           <div className='arrow-main'>
+       <Link to="/search"> <i class="fas fa-chevron-right"></i> </Link>
+        </div>
+           </div>
+                <div className="banner-heading">
+                    <h2> <span>NETFLIX</span> original</h2>
+                    <h1>{movie?.Title || movie?.name || movie?.original_name} </h1>
+                    <div className="header-buttons">
+                        <button>{movie?.media_type || movie?.Type}</button>
+                        <button>{movie?.BoxOffice || movie?.original_language}</button>
+                        <button>{movie?.Released || movie?.release_date}</button>
+                        <button>{movie?.vote_average || movie?.imdbRating}</button>
+                    </div>
+                    <p> {movie?.overview} </p>
+                </div>
+                <div className="banner-img" style={{
+                    backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path ||movie?.Poster})`,
+                    backgroundPosition: "center",
+                    backgroundSize: "cover"
+                }}>
+                </div>
+            </header>
             <h1> Top Rated Movies </h1>
             
         <div className="toprated-movies">
